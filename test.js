@@ -26,3 +26,22 @@ switch (num) {
         console.log("Что-то пошло не так");
         break;
 }
+
+let numer = 50;
+//while (numer < 55) {
+//    console.log(numer);
+//    numer++;
+//}
+
+do {
+    console.log(numer);
+    numer++;
+}
+while (numer < 55);
+
+for (let i = 1; i < 8; i++) {
+    if (i == 6) {
+        break;
+    }
+    console.log(i)
+}
