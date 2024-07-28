@@ -14,14 +14,17 @@ for (let i = 0; i < 2; i++) {
 	let a = prompt("Введите обязательную статью расходов в этом месяце", ''),
 		b = prompt("Во сколько обойдется?", '');
 
-	if ( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null
-		&& a != '' && b != '' && a.length < 50) {
+	if (isValidString(a) && isValidString(b)) {
 		console.log("done");
 		appData.expenses[a] = b;
 	} else {
 		continue;
 	}
 };
+
+function isValidString(str) {
+	return typeof(str) === 'string' &&  typeof(str) != null &&  str != '' && str.length < 50
+}
 
 appData.moneyPerDay = appData.budget / 30;
 
