@@ -27,6 +27,7 @@ switch (num) {
         break;
 }
 
+//lesson
 let numer = 50;
 //while (numer < 55) {
 //    console.log(numer);

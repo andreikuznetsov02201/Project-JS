@@ -50,26 +50,26 @@
 // }
 // while(i < 2);
 
-let calc = (a,b) => a+b
-
-console.log(calc(3,4));
-console.log(calc(8,4));
-
-function retVar() {
-    let num = 50;
-    return num
+function first(){
+    setTimeout( function(){
+    console.log(1);
+    }, 500);
 }
 
-let anotherNum = retVar();
-console.log(anotherNum);
+function second() {
+    console.log(2);
+}
 
-let str = 'test';
-console.log(str.length);
+first();
+second();
 
-console.log(str.toUpperCase());
-console.log(str.toLowerCase());
+function learnJs(lang, callback) {
+    console.log("Я учу " + lang);
+    callback();
+}
 
-let twelve = "12.2px";
-//console.log(Math.round(twelve));
-console.log(parseInt(twelve));
-console.log(parseFloat(twelve));
+function done() {
+    console.log("Я прошёл 3 урок!")
+}
+
+learnJs("JavaScript", done);
