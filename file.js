@@ -1,5 +1,6 @@
 'use strict'
 let money, time;//делаем переменные глобальными
+//https://beonmax.com/img/adds/006javascript/classification.jpg
 
 function start () {
 	money = +prompt("Ваш бюджет на месяц?", '');
@@ -81,5 +82,5 @@ let appData = {
 };
 
 for (let key in appData) {
-    console.log("Наша программа включает в себя данные: " + key + '-' + appData[key]);//сначала названия а потом  значения
+    console.log("Наша программа включает в себя данные: " + key + '-' + appData[key]);//сначала названия а потом  значенияgi
 }
