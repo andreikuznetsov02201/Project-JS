@@ -5,7 +5,7 @@ let box = document.getElementById('box'),
     oneHeart = document.querySelector('.heart');
     wrapper = document.querySelector('.wrapper');
 
-box.style.backgroundColor = 'blue';
+box.style.fontSize
 btn[1].style.borderRadius = '100%';
 
 circle[0].style.backgroundColor = 'red';
