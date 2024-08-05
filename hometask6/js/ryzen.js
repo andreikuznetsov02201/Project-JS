@@ -34,14 +34,16 @@ startBtn.addEventListener('click', function() {
 	time = prompt('Введите дату в формате YYYY-MM-DD', '');
     money = +prompt("Ваш бюджет на месяц?", '');
 
-	while(isNaN(money) || money == '' || money == null) {
+	while(isNaN(money) || money == '' || money == null) {           //проверяет чтобы было число
 		money = +prompt("Ваш бюджет на месяц?", '');
 	}
-    appData.budget = money;
-    appData.timeData = time;
-    budgetValue.textContent = money.toFixed();
-    yearValue.value = new Date(Date.parse(time)).getFullYear();//value только для input
-    monthValue.value = new Date(Date.parse(time)).getMonth() +1;//для того чтобы неначинал с нуля
+    appData.budget = money;         //записываем в глобал объект (ответ пользователя)
+    appData.timeData = time;            //
+    
+    budgetValue.textContent = money.toFixed();          //записываем в графу дохода
+
+    yearValue.value = new Date(Date.parse(time)).getFullYear();         //value только для input
+    monthValue.value = new Date(Date.parse(time)).getMonth() +1;            //для того чтобы неначинал с нуля
     dayValue.value = new Date(Date.parse(time)).getDate();
 
     expensesBtn.disabled = false;
@@ -49,37 +51,36 @@ startBtn.addEventListener('click', function() {
     countBtn.disabled = false;
 });
 
-expensesBtn.addEventListener('click', function() {
+expensesBtn.addEventListener('click', function() {          //первая кнопка утвердить
     let sum = 0;
 
-    for (let i = 0; i < expensesItem.length; i++) {
-        let a = expensesItem[i].value,
-            b = expensesItem[++i].value;
+    for (let i = 0; i < expensesItem.length; i++) {             //создаётся псевдоколлекция которая сама считает сколько input
+        let a = expensesItem[i].value,          //перебирает с нуля --- наименование расхода
+            b = expensesItem[++i].value;            //следущий элемент идущий за i --- префикс. инкремент
     
         if ( typeof(a) === 'string' && typeof(a) != null && typeof(b) != null
             && a != '' && b != '' && a.length < 50) {
-            console.log("done");
-            appData.expenses[a] = b;
-            sum += +b;//число
+            appData.expenses[a] = b;            //значение и сколько оно будет стоить
+            sum += +b;          //всю сумму --- прибавляем к сумме знач b --- в глоб объект
         } else {
             i = i - 1;
         }
+        expensesValue.textContent = sum;            //запись в графу
     }
-    expensesValue.textContent = sum;
 });
 
-optionalExpensesBtn.addEventListener('click', function() {
+optionalExpensesBtn.addEventListener('click', function() {          //необязательные расходы
     for (let i = 0; i <= optionalExpensesItem.length; i++) {
-        let opt = optionalExpensesItem[i].value;
-        appData.optionalExpenses[i] = opt;
-        optionalExpensesValue.textContent += appData.optionalExpenses[i] + ', ';
+        let opt = optionalExpensesItem[i].value;            //получаем из кажджого элемента по порядку
+        appData.optionalExpenses[i] = opt;          //помещаем в глоб объект(appData)
+        optionalExpensesValue.textContent += appData.optionalExpenses[i] + ', ';      // в графу
     }
 });
 
-countBtn.addEventListener('click', function() {
+countBtn.addEventListener('click', function() {            //расчёт дневного бюджета
 
     if (appData.budget != undefined) {
-        appData.moneyPerDay = (appData.budget / 30).toFixed();
+        appData.moneyPerDay = (appData.budget / 30).toFixed();          //на 1 день
         dayBudgetValue.textContent = appData.moneyPerDay;
 
         if (appData.moneyPerDay < 100) {
@@ -96,10 +97,13 @@ countBtn.addEventListener('click', function() {
     }
 });
 
-incomeItem.addEventListener('input', function() {
+incomeItem.addEventListener('input', function() {           //возможн доход
     let items = incomeItem.value;
-    appData.income = items.split(', ');
-    incomeValue.textContent = appData.income;
+    console.log(1);
+    if (isNaN(items) || items != '') {          //проверка
+        appData.income = items.split(', ');
+        incomeValue.textContent = appData.income;           //в графу
+    }
 });
 
 checkSavings.addEventListener('click', function() {
@@ -125,7 +129,7 @@ sumValue.addEventListener('input', function() {
 
 percentValue.addEventListener('input', function() {
     if (appData.savings == true) {        
-        let sum = +sumValue.value,
+        let sum = +sumValue.value,          //то что пишет польз. сохран. здесь
             percent = +percentValue.value;//число
     
         appData.monthIncome = sum/100/12*percent;

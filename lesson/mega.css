@@ -1,0 +1,12 @@
+button {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+}
+
+.box {
+	width: 100px;
+	height: 100px;
+	background: red;
+}
