@@ -1,0 +1,28 @@
+button {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    margin: 10px;
+    background-color: brown;
+}
+
+.wrapper {
+    border: 3px;
+    display: block;
+    width: 300px;
+    height: 200px;
+    border: 3px solid green;
+}
+
+.box {
+    height: 70px;
+    width: 70px;
+    background-color: #555;
+}
+
+.btn-block {
+    background-color: aqua;
+}
+
