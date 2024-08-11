@@ -36,30 +36,33 @@ window.addEventListener('DOMContentLoaded', function() {    //когда заг�
 
     // Timer
 
-    let deadline = '2024-10-21';
+    let deadline = '2024-10-21';    //крайний срок
 
-    function getTimeRemaining(endtime) {
-        let t = Date.parse(endtime) - Date.parse(new Date()),
-        seconds = Math.floor((t/1000) % 60),
-        minutes = Math.floor((t/1000/60) % 60),
-        hours = Math.floor((t/(1000*60*60)));
+    function getTimeRemaining(endtime) {    //промежуток времени(между deadline и наст. врем.)
+        let t = Date.parse(endtime) - Date.parse(new Date()),   //parse --- кол милесек //new Date настоящее время(дан момент)
+        seconds = Math.floor((t/1000) % 60),        //получаем из милесек сек //ост от деления, вычленяем из всего мин. и ост
+        minutes = Math.floor((t/1000/60) % 60),     //получаем целые мин. (хвостик)
+        hours = Math.floor((t/1000/60/60) % 24),    //получаем целые часы
+        days = Math.floor((t/(1000*60*60*24)));    //а тут дней может быть сколько угодно
 
-        return {
+        return {    //возвращаем obj куда помещаем переменные
             'total' : t,
+            'days' : days,
             'hours' : hours,
             'minutes' : minutes,
             'seconds' : seconds
         };
     }
 
-    function setClock(id, endtime) {
-        let timer = document.getElementById(id),
+    function setClock(id, endtime) {    //делаем вёрстку динамичной
+        let timer = document.getElementById(id),    //получаем все элементы 
+            days = timer.querySelector('.days'),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
             seconds = timer.querySelector('.seconds'),
-            timeInterval = setInterval(updateClock, 1000);
+            timeInterval = setInterval(updateClock, 1000);  //обновление
             
-        function updateClock() {
+        function updateClock() {    //обновляет часы каждую секунду
             let t = getTimeRemaining(endtime);
 
             /*function addZero(num) {
@@ -71,13 +74,15 @@ window.addEventListener('DOMContentLoaded', function() {    //когда заг�
             hours.textContent = addZero(t.hours);
             minutes.textContent = addZero(t.minutes);
             seconds.textContent = addZero(t.seconds);*/
-
-            hours.textContent = t.hours;
+            
+            days.textContent = t.days;      //помещаем данные в эти элементы(HTML)
+            hours.textContent = t.hours;    //данные берутся из return
             minutes.textContent = t.minutes;
             seconds.textContent = t.seconds;
 
-            if (t.total <= 0) {
-                clearInterval(timeInterval);
+            if (t.total <= 0) {     //если значение меньше нуля то... (когда время закончится)
+                clearInterval(timeInterval);    //останавливаеам таймер
+                days.textContent = '00';
                 hours.textContent = '00';
                 minutes.textContent = '00';
                 seconds.textContent = '00';
@@ -86,5 +91,24 @@ window.addEventListener('DOMContentLoaded', function() {    //когда заг�
 
     }
 
-    setClock('timer', deadline);
+    setClock('timer', deadline);    //1---это id, 2---это endtime(deadline)
+
+    // Modal
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
+
+    more.addEventListener('click', function() {
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';     //запрещем прокрутку страницы когда открыто мод. окно
+    });
+
+    close.addEventListener('click', function() {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';      //убираем это
+    });
+
 });
