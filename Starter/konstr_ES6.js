@@ -5,10 +5,10 @@ class User {
         this.human = true;
     }
     hello() {
-        console.log('Hello! ${this.name}')
+        console.log(`Hello! ${this.name}`)
     }
     exit() {
-        console.log('Пользователь ${this.name} ушёл')
+        console.log(`Пользователь ${this.name} ушёл`)
     }
 }
 let ivan = new User('Ivan', 25);
