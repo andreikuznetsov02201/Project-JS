@@ -44,3 +44,10 @@ shoot({})   //это методы точки не нужны
 
 //https://learn.javascript.ru/promise
 //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Promise
+/*//создаём JSON  
+                        let obj = {};   //промежуточный объект
+                        formData.forEach(function(value, key) {
+                            obj[key] = value;       //записываем новое значение
+                        });
+                        let json = JSON.stringify(obj);         //превращает обычные js объекеты в json формат
+                        request.send(json);     //может быть formData если это не json    //открывает запрос(отправляем его на серевер) formData --- то что ввёл пользователь*/
