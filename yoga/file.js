@@ -209,6 +209,58 @@ window.addEventListener('DOMContentLoaded', function() {        //когда з�
             
         for (let i = 0; i < input.length; i++) {        //очищаем форму от input
             input[i].value = '';        //превращаем в пустую строку
+        }        
+    });
+
+    // Slider
+
+    let slideIndex = 1,         //слайд который показывается в данный момент
+        slides = document.querySelectorAll('.slider-item'),
+        prev = document.querySelector('.prev'),
+        next = document.querySelector('.next'),
+        dotsWrap = document.querySelector('.slider-dots'),
+        dots = document.querySelectorAll('.dot');
+
+    showSlides(slideIndex);             //function declaration
+    function showSlides(n) {            //n --- номер слайда
+
+        if (n > slides.length) {    //если слайды закончились то возвр. к первому
+            slideIndex = 1;
+        }
+        if (n < 1) {            //если мы на 1 слайде нажим. стрелку назад то возвращаемся к последнему слайду
+            slideIndex = slides.length;
+        }
+
+        slides.forEach((item) => item.style.display = 'none');          //1)скрываем слайды, 2)item---все слайды
+        /*for (let i = 0; i < slides.length; i++) { 2 способ!
+            slides[i].style.display = 'none';
+        }*/ 
+        dots.forEach((item) => item.classList.remove('dot-active'));        //убираем класс active потом этоо класс нзначим той кнопке которая будет нажата
+
+        slides[slideIndex - 1].style.display = 'block';             //1)показываем слайд который нужен, 2)в js 1 это 0 поэтому переводим в формат js
+        dots[slideIndex - 1].classList.add('dot-active');
+    }
+
+    function plusSlides(n) {            //увел. парамтр slideIndex  n --- 1 
+        showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {          //текущий слайд, когда клик на 4 точку и тепепрь если мы хотим вызвать 4 слайд мы перемещ 4 и slideIndex = 4
+        showSlides(slideIndex = n);
+    }
+
+    prev.addEventListener('click', function() {             //стредака назад
+        plusSlides(-1);
+    });
+
+    next.addEventListener('click', function() {             //стрелка вперёд
+        plusSlides(1);
+    });
+
+    dotsWrap.addEventListener('click', function(event) {            //используем делегирование событий
+        for (let i = 0; i < dots.length + 1; i++) {         //перебираем все точки
+            if (event.target.classList.contains('dot') && event.target == dots[i-1]) {          //1)тот элем. на который мы кликнули --- event.target, проверям класс dot c помощью contains 2)узнаём номер точки
+                currentSlide(i);            //вывод. текущий слайд
+            }
         }
     });
 });
