@@ -263,4 +263,47 @@ window.addEventListener('DOMContentLoaded', function() {        //когда з�
             }
         }
     });
+
+    //Calc
+    
+    let persons = document.querySelectorAll('.counter-block-input')[0],
+        restDays = document.querySelectorAll('.counter-block-input')[1],
+        place = document.getElementById('select'),
+        totalValue = document.getElementById('total'),
+        personsSum = 0,
+        daysSum = 0,
+        total = 0;
+
+        totalValue.innerHTML = 0;           //делаем общую сумму ноль
+
+        persons.addEventListener('change', function() {             //при изменение значения инпута
+            personsSum = +this.value;           //то что ввёл пользователь   можем получить тот элемент с которым общаемся
+            total = (daysSum + personsSum) * 4000;
+
+            if (restDays.value == '') {             //если одно из полей не заполнено то будет 0
+                totalValue.innerHTML = 0;
+            } else {
+                totalValue.innerHTML = total;
+            }
+        });
+
+        restDays.addEventListener('change', function() {             //при изменение значения инпута
+            daysSum = +this.value;           //то что ввёл пользователь   можем получить тот элемент с которым общаемся
+            total = (daysSum + personsSum) * 4000;
+
+            if (persons.value == '') {             //если одно из полей не заполнено то будет 0
+                totalValue.innerHTML = 0;
+            } else {
+                totalValue.innerHTML = total;
+            }
+        });
+
+        place.addEventListener('change', function() {
+            if (restDays.value == '' || persons.value == '') {          //проверяем нет ли пустой строки
+                totalValue.innerHTML = 0;
+            } else {
+                let a = total;          //избегаем потерю данных //делаем техническую переменную чтобы total при переходе на другую баху не перемножался
+                totalValue.innerHTML = a * this.options[this.selectedIndex].value;          //1)обращаемся к тому options с которым воздействуем 2)к тому элементу котрый был выбран
+            }
+        });
 });
